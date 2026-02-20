@@ -2,56 +2,71 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Student</title>
-    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
+<body class="bg-emerald-500 min-h-screen flex flex-col items-center py-10">
 
-<div class="container narrow">
+    <h1 class="font-serif text-4xl text-white font-bold mb-8">
+        Add Student
+    </h1>
 
-    <h1 class="title">Add Student</h1>
+    <!-- width controller -->
+    <div class="w-full max-w-md bg-white rounded-xl shadow-lg p-6">
 
-    <form class="student-form">
+        <form class="text-slate-700 w-full space-y-4">
 
-        <div class="field">
-            <label for="name">First name</label>
-            <input type="text" id="name" name="name">
-        </div>
+            <div>
+                <label class="block mb-1 font-medium">First name</label>
+                <input type="text" name="firstname"
+                    class="w-full border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+            </div>
 
-        <div class="field">
-            <label for="surname">Surname</label>
-            <input type="text" id="surname" name="surname">
-        </div>
+            <div>
+                <label class="block mb-1 font-medium">Surname</label>
+                <input type="text" name="surname"
+                    class="w-full border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+            </div>
 
-        <div class="field">
-            <label for="age">Age</label>
-            <input type="text" id="age" name="age">
-        </div>
+            <div>
+                <label class="block mb-1 font-medium">Age</label>
+                <input type="number" name="age"
+                    class="w-full border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+            </div>
 
-        <div class="field">
-            <label for="school">School</label>
-            <input type="text" id="school" name="school">
-        </div>
+            <div>
+                <label class="block mb-1 font-medium">School</label>
+                <input type="text" name="school"
+                    class="w-full border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+            </div>
 
-        <div class="field">
-            <label for="subject">Subject</label>
-            <input type="text" id="subject" name="subject">
-        </div>
+            <div>
+                <label class="block mb-1 font-medium">Subject</label>
+                <input type="text" name="subject"
+                    class="w-full border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+            </div>
 
-        <div class="actions">
-            <button type="submit">Submit</button>
-            <button type="button">Edit</button>
-        </div>
+            <div class="flex justify-between pt-4">
+                <button type="button"
+                    class="bg-amber-400 hover:bg-amber-500 text-black font-semibold px-4 py-2 rounded-md transition">
+                    Edit
+                </button>
 
-    </form>
+                <button type="submit"
+                    class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2 rounded-md transition">
+                    Submit
+                </button>
+            </div>
 
-    <div class="List">
-        <a href="studentlist.html">View Student List</a>
+        </form>
+
     </div>
 
-</div>
+    <a href="StudentList.html"
+       class="mt-8 text-white underline hover:text-emerald-200">
+        View Student List
+    </a>
 
 </body>
 </html>

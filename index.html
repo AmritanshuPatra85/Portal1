@@ -1,22 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Home</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Portal Mockup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
 
-<div class="container">
-    <h1>Welcome to the portal</h1>
-    <article> Do you want to select or add students based on your preference
-        select the option.
-        Thanks!!
-    </article>
-<div class="box">
-    <a href="AddStudent.html">Add Student</a>
-    <a href="StudentList.html">Student List</a>
-    <footer>Have a great experience</footer>
-</div>
-</div>
+<body class="bg-emerald-500 min-h-screen flex flex-col text-slate-800">
+
+    <header class="text-center text-4xl font-semibold py-6 text-white font-serif tracking-wide">
+        Welcome to the portal
+    </header>
+
+    <nav class="bg-slate-900 text-white shadow-md">
+        <ul class="flex justify-center gap-12 text-lg font-medium py-4">
+
+            <li>
+                <a href="AddStudent.html"
+                   class="px-5 py-2 rounded-lg hover:bg-slate-700 transition-colors duration-200">
+                   Add Students
+                </a>
+            </li>
+
+            <li>
+                <a href="StudentList.html"
+                   class="px-5 py-2 rounded-lg hover:bg-slate-700 transition-colors duration-200">
+                   Students List
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+
+
+    <main class="flex-1 flex items-center justify-center">
+        <div class="bg-white/90 backdrop-blur rounded-xl shadow-lg px-10 py-8 text-xl font-semibold">
+            Select an option above to begin
+        </div>
+    </main>
+
+
+    <footer class="bg-emerald-600 text-white text-center py-3 font-medium">
+        Happy Learning!!
+    </footer>
+
 </body>
 </html>

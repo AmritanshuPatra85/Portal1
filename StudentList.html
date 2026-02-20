@@ -4,84 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student List</title>
-    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
+<body class="bg-emerald-500 min-h-screen flex justify-center py-10">
 
-<div class="container">
+    <!-- Card container -->
+    <div class="bg-white shadow-xl rounded-xl w-full max-w-5xl p-8">
 
-    <h1>Student List</h1>
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold text-slate-800">Student List</h1>
 
-    <a href="AddStudent.html" class="add-link">Add Student</a>
+            <a href="AddStudent.html"
+               class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-medium transition">
+               + Add Student
+            </a>
+        </div>
 
-    <div class="table-wrapper">
+        <!-- Table title -->
+        <h2 class="text-xl font-semibold text-slate-700 mb-4">All Students</h2>
 
-        <h2 class="table-title">All Students</h2>
+        <!-- Table -->
+        <div class="overflow-x-auto">
+            <table class="w-full border-collapse">
 
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Full Name</th>
-                    <th>Email</th>
-                    <th>Date of Birth</th>
-                    <th>Course</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
+                <thead class="bg-slate-800 text-white">
+                    <tr>
+                        <th class="p-3 text-left">ID</th>
+                        <th class="p-3 text-left">Full Name</th>
+                        <th class="p-3 text-left">Email</th>
+                        <th class="p-3 text-left">Date of Birth</th>
+                        <th class="p-3 text-left">Course</th>
+                        <th class="p-3 text-left">Actions</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Amritanshu Patra</td>
-                    <td>amritanshupatra85@gmail.com</td>
-                    <td>08-05-2005</td>
-                    <td>Mathematics</td>
-                    <td>Edit | Delete</td>
-                </tr>
+                <tbody class="text-slate-700">
 
-                <tr>
-                    <td>2</td>
-                    <td>Ronit Samanata</td>
-                    <td>ronit@gmail.com</td>
-                    <td>22-08-2005</td>
-                    <td>Physics</td>
-                    <td>Edit | Delete</td>
-                </tr>
+                    <tr class="border-b hover:bg-slate-50">
+                        <td class="p-3">1</td>
+                        <td class="p-3">Amritanshu Patra</td>
+                        <td class="p-3">amritanshupatra85@gmail.com</td>
+                        <td class="p-3">08-05-2005</td>
+                        <td class="p-3">Mathematics</td>
+                        <td class="p-3 space-x-3">
+                            <button class="text-blue-600 hover:underline">Edit</button>
+                            <button class="text-red-600 hover:underline">Delete</button>
+                        </td>
+                    </tr>
 
-                <tr>
-                    <td>3</td>
-                    <td>Aninda Kundu</td>
-                    <td>Aninda@test.com</td>
-                    <td>03-11-2003</td>
-                    <td>Chemistry</td>
-                    <td>Edit | Delete</td>
-                </tr>
+                    <tr class="border-b hover:bg-slate-50">
+                        <td class="p-3">2</td>
+                        <td class="p-3">Ronit Samanata</td>
+                        <td class="p-3">ronit@gmail.com</td>
+                        <td class="p-3">22-08-2005</td>
+                        <td class="p-3">Physics</td>
+                        <td class="p-3 space-x-3">
+                            <button class="text-blue-600 hover:underline">Edit</button>
+                            <button class="text-red-600 hover:underline">Delete</button>
+                        </td>
+                    </tr>
 
-                <tr>
-                    <td>4</td>
-                    <td>Rajat</td>
-                    <td>Rajat@mockup.com</td>
-                    <td>18-02-2004</td>
-                    <td>Biology</td>
-                    <td>Edit | Delete</td>
-                </tr>
+                    <tr class="border-b hover:bg-slate-50">
+                        <td class="p-3">3</td>
+                        <td class="p-3">Aninda Kundu</td>
+                        <td class="p-3">Aninda@test.com</td>
+                        <td class="p-3">03-11-2003</td>
+                        <td class="p-3">Chemistry</td>
+                        <td class="p-3 space-x-3">
+                            <button class="text-blue-600 hover:underline">Edit</button>
+                            <button class="text-red-600 hover:underline">Delete</button>
+                        </td>
+                    </tr>
 
-                <tr>
-                    <td>5</td>
-                    <td>Krish Patra</td>
-                    <td>krish@patra.com</td>
-                    <td>08-10-2005</td>
-                    <td>Computer Science</td>
-                    <td>Edit | Delete</td>
-                </tr>
-            </tbody>
-        </table>
+                </tbody>
+
+            </table>
+        </div>
 
     </div>
-
-</div>
 
 </body>
 </html>
