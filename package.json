@@ -1,0 +1,31 @@
+{
+  "name": "project1",
+  "version": "1.0.0",
+  "description": "An e-learning portal. Current status: HTML & CSS Mockup done",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmritanshuPatra85/Portal1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AmritanshuPatra85/Portal1/issues"
+  },
+  "homepage": "https://github.com/AmritanshuPatra85/Portal1#readme",
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "mysql2": "^3.19.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
