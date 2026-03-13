@@ -48,7 +48,9 @@ router.put('/editStudent/:id', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-// GET - Get All Students
+
+// See Students-GET
+
 router.get('/getStudents', async (req, res) => {
   try {
     const [rows] = await pool.execute('SELECT * FROM students');
@@ -58,7 +60,7 @@ router.get('/getStudents', async (req, res) => {
   }
 });
 
-// GET - Get Single Student
+// Ek Student Dekho- GET
 router.get('/getStudent/:id', async (req, res) => {
   try {
     const [rows] = await pool.execute(
@@ -76,7 +78,7 @@ router.get('/getStudent/:id', async (req, res) => {
   }
 });
 
-// DELETE - Delete Student
+// Student Hatao-DELETE
 router.delete('/deleteStudent/:id', async (req, res) => {
   try {
     const [result] = await pool.execute(

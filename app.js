@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import express from 'express';
+import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import pool from './config/db.js';
@@ -12,10 +13,11 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Middlewares
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Routes - AFTER app is created
+// Routes
 app.use('/api/students', studentRoutes);
 
 // Test DB Connection
@@ -31,7 +33,6 @@ const testConnection = async () => {
 
 testConnection();
 
-// Test route
 app.get('/', (req, res) => {
   res.json({ message: 'Server is running' });
 });
