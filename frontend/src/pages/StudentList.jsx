@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import * as XLSX from "xlsx";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 const StudentList = () => {
   const [students, setStudents] = useState([]);
@@ -10,12 +13,10 @@ const StudentList = () => {
   useEffect(() => {
     fetchStudents();
   }, []);
-
+//Students Lao
   const fetchStudents = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:3000/api/students/getStudents"
-      );
+      const res = await axios.get("http://localhost:3000/api/students/getStudents");
       const data = res.data.students || res.data || [];
       setStudents(data);
     } catch (error) {
@@ -25,23 +26,53 @@ const StudentList = () => {
       setLoading(false);
     }
   };
-
+//Students Hatao
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this student?"
-    );
+    const confirmDelete = window.confirm("Are you sure you want to delete this student?");
     if (!confirmDelete) return;
-
     try {
-      await axios.delete(
-        `http://localhost:3000/api/students/deleteStudent/${id}`
-      );
+      await axios.delete(`http://localhost:3000/api/students/deleteStudent/${id}`);
       alert("Student deleted successfully");
       setStudents((prev) => prev.filter((s) => s.id !== id));
     } catch (error) {
       console.error(error);
       alert("Error deleting student");
     }
+  };
+
+  // Excel banao
+  const downloadExcel = () => {
+    const exportData = students.map((s) => ({
+      ID: s.id,
+      "Full Name": s.full_name,
+      Email: s.email,
+      "Date of Birth": s.dob ? new Date(s.dob).toLocaleDateString() : "-",
+      Course: s.course,
+    }));
+    const worksheet = XLSX.utils.json_to_sheet(exportData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Students");
+    XLSX.writeFile(workbook, "students.xlsx");
+  };
+
+  // PDF Banao
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+    doc.setFontSize(16);
+    doc.text("Student List", 14, 15);
+    autoTable(doc, {
+      startY: 22,
+      head: [["ID", "Full Name", "Email", "Date of Birth", "Course"]],
+      body: students.map((s) => [
+        s.id,
+        s.full_name,
+        s.email,
+        s.dob ? new Date(s.dob).toLocaleDateString() : "-",
+        s.course,
+      ]),
+      headStyles: { fillColor: [5, 150, 105] }, // emerald color to match your UI
+    });
+    doc.save("students.pdf");
   };
 
   if (loading) {
@@ -61,12 +92,28 @@ const StudentList = () => {
             <h1 className="text-4xl font-bold text-emerald-700">Student List</h1>
             <p className="text-slate-500 mt-1">Manage all registered students</p>
           </div>
-          <Link
-            to="/add-student"
-            className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition-all duration-300"
-          >
-            + Add Student
-          </Link>
+
+          {/* ✅ All three buttons grouped together */}
+          <div className="flex gap-3">
+            <button
+              onClick={downloadExcel}
+              className="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-xl font-semibold shadow-md transition-all duration-300"
+            >
+               Get Excel
+            </button>
+            <button
+              onClick={downloadPDF}
+              className="bg-red-500 hover:bg-red-600 text-white px-5 py-3 rounded-xl font-semibold shadow-md transition-all duration-300"
+            >
+              Get PDF
+            </button>
+            <Link
+              to="/add-student"
+              className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition-all duration-300"
+            >
+              + Add Student
+            </Link>
+          </div>
         </div>
 
         <div className="overflow-x-auto rounded-xl border border-slate-200">
