@@ -13,12 +13,17 @@ const StudentList = () => {
   useEffect(() => {
     fetchStudents();
   }, []);
-//Students Lao
+
+  // Students Lao
   const fetchStudents = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/students/getStudents");
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/students/getStudents`
+      );
+
       const data = res.data.students || res.data || [];
       setStudents(data);
+
     } catch (error) {
       console.error(error);
       alert("Error fetching students");
@@ -26,14 +31,20 @@ const StudentList = () => {
       setLoading(false);
     }
   };
-//Students Hatao
+
+  // Students Hatao
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this student?");
     if (!confirmDelete) return;
+
     try {
-      await axios.delete(`http://localhost:3000/api/students/deleteStudent/${id}`);
+      await axios.delete(
+        `${import.meta.env.VITE_API_URL}/api/students/deleteStudent/${id}`
+      );
+
       alert("Student deleted successfully");
       setStudents((prev) => prev.filter((s) => s.id !== id));
+
     } catch (error) {
       console.error(error);
       alert("Error deleting student");
@@ -49,6 +60,7 @@ const StudentList = () => {
       "Date of Birth": s.dob ? new Date(s.dob).toLocaleDateString() : "-",
       Course: s.course,
     }));
+
     const worksheet = XLSX.utils.json_to_sheet(exportData);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Students");
@@ -60,6 +72,7 @@ const StudentList = () => {
     const doc = new jsPDF();
     doc.setFontSize(16);
     doc.text("Student List", 14, 15);
+
     autoTable(doc, {
       startY: 22,
       head: [["ID", "Full Name", "Email", "Date of Birth", "Course"]],
@@ -70,8 +83,9 @@ const StudentList = () => {
         s.dob ? new Date(s.dob).toLocaleDateString() : "-",
         s.course,
       ]),
-      headStyles: { fillColor: [5, 150, 105] }, // emerald color to match your UI
+      headStyles: { fillColor: [5, 150, 105] },
     });
+
     doc.save("students.pdf");
   };
 
@@ -93,20 +107,21 @@ const StudentList = () => {
             <p className="text-slate-500 mt-1">Manage all registered students</p>
           </div>
 
-          {/* ✅ All three buttons grouped together */}
           <div className="flex gap-3">
             <button
               onClick={downloadExcel}
               className="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-xl font-semibold shadow-md transition-all duration-300"
             >
-               Get Excel
+              Get Excel
             </button>
+
             <button
               onClick={downloadPDF}
               className="bg-red-500 hover:bg-red-600 text-white px-5 py-3 rounded-xl font-semibold shadow-md transition-all duration-300"
             >
               Get PDF
             </button>
+
             <Link
               to="/add-student"
               className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition-all duration-300"
@@ -157,6 +172,7 @@ const StudentList = () => {
                       >
                         Edit
                       </button>
+
                       <button
                         onClick={() => handleDelete(student.id)}
                         className="bg-red-100 text-red-600 px-3 py-1 rounded-lg text-xs font-semibold hover:bg-red-200 transition"

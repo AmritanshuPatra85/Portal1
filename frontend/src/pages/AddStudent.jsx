@@ -20,7 +20,7 @@ const AddStudent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await axios.post('http://localhost:3000/api/students/addStudents', formData)
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/students/addStudents`, formData)
       alert('Student added successfully!')
       navigate('/students')
     } catch (error) {
