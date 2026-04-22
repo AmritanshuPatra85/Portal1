@@ -2,9 +2,11 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const role = localStorage.getItem('role');
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('role');
     navigate('/login');
   };
 
@@ -21,18 +23,24 @@ const Navbar = () => {
         >
           Home
         </Link>
-        <Link
-          to="/students"
-          className="text-emerald-100 hover:text-white font-medium transition"
-        >
-          Students
-        </Link>
-        <Link
-          to="/add-student"
-          className="text-emerald-100 hover:text-white font-medium transition"
-        >
-          Add Student
-        </Link>
+
+        {role === 'admin' && (
+          <>
+            <Link
+              to="/students"
+              className="text-emerald-100 hover:text-white font-medium transition"
+            >
+              Students
+            </Link>
+            <Link
+              to="/add-student"
+              className="text-emerald-100 hover:text-white font-medium transition"
+            >
+              Add Student
+            </Link>
+          </>
+        )}
+
         <button
           onClick={handleLogout}
           className="bg-white text-emerald-700 px-4 py-2 rounded-lg font-semibold hover:bg-emerald-100 transition"

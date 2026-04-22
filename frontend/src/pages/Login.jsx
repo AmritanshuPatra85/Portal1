@@ -1,46 +1,44 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import api from '../utils/api.js';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-      });
+      const res = await api.post('/auth/login', { email, password });
+      const { token, role } = res.data;
 
-      const data = await res.json();
+      localStorage.setItem('token', token);
+      localStorage.setItem('role', role);
 
-      if (!res.ok) {
-        setError(data.message);
-        return;
+      if (role === 'admin') {
+        navigate('/students');
+      } else {
+        navigate('/dashboard');
       }
 
-      localStorage.setItem('token', data.token);
-      navigate('/students');
     } catch (err) {
-      setError('Something went wrong');
+      setError(err.response?.data?.message || 'Something went wrong');
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-sm">
-        <h2 className="text-2xl font-bold mb-6 text-center">Admin Login</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-400 via-emerald-500 to-teal-600">
+      <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-sm">
+        <h2 className="text-2xl font-bold mb-6 text-center text-emerald-700">Welcome Back</h2>
 
         {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
 
         <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           className="w-full border p-2 rounded mb-4"
         />
         <input
@@ -52,10 +50,17 @@ const Login = () => {
         />
         <button
           onClick={handleLogin}
-          className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+          className="w-full bg-emerald-600 text-white p-2 rounded hover:bg-emerald-700 mb-3"
         >
           Login
         </button>
+
+        <p className="text-center text-sm text-slate-500">
+          Don't have an account?{' '}
+          <Link to="/register" className="text-emerald-600 font-semibold hover:underline">
+            Register
+          </Link>
+        </p>
       </div>
     </div>
   );

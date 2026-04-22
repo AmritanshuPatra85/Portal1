@@ -6,7 +6,8 @@ import { fileURLToPath } from 'url';
 import jwt from 'jsonwebtoken';
 import pool from './config/db.js';
 import studentRoutes from './Control/routes.js';
-import { verifyToken, SECRET } from './middleware/auth.js';
+import { verifyToken, SECRET, requireRole } from './middleware/auth.js';
+import authRoutes from './Control/authRoutes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,13 +20,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Hardcoded admin credentials
+// Hardcoded admin credentials (keep for now)
 const ADMIN = {
   username: 'admin',
   password: 'admin123'
 };
 
-// Login route — public, no token needed
+// Old hardcoded login route
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
 
@@ -37,8 +38,11 @@ app.post('/login', (req, res) => {
   res.json({ token });
 });
 
-// Protected routes — verifyToken runs before any student route
-app.use('/api/students', verifyToken, studentRoutes);
+// New auth routes (register + login via DB)
+app.use('/auth', authRoutes);
+
+// Protected routes — admin only
+app.use('/api/students', verifyToken, requireRole('admin'), studentRoutes);
 
 // Test DB Connection
 const testConnection = async () => {
