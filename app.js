@@ -41,7 +41,48 @@ app.post('/login', (req, res) => {
 // New auth routes (register + login via DB)
 app.use('/auth', authRoutes);
 
-// Protected routes — admin only
+// Student can access their own data — must come BEFORE admin-protected route
+app.get('/api/students/me', verifyToken, async (req, res) => {
+  try {
+    const email = req.user.email;
+    const [rows] = await pool.execute(
+      'SELECT * FROM students WHERE email = ?',
+      [email]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ message: 'Student record not found' });
+    }
+
+    res.status(200).json(rows[0]);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Student saves their own profile for the first time
+app.post('/api/students/me', verifyToken, async (req, res) => {
+  try {
+    const email = req.user.email;
+    const { full_name, dob, course } = req.body;
+
+    await pool.execute(
+      'INSERT INTO students (full_name, email, dob, course, updated_by) VALUES (?, ?, ?, ?, ?)',
+      [full_name, email, dob, course, email]
+    );
+
+    const [rows] = await pool.execute(
+      'SELECT * FROM students WHERE email = ?',
+      [email]
+    );
+
+    res.status(201).json(rows[0]);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Admin only — must come AFTER /me
 app.use('/api/students', verifyToken, requireRole('admin'), studentRoutes);
 
 // Test DB Connection

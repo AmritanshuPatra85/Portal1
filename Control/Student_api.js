@@ -94,5 +94,24 @@ router.delete('/deleteStudent/:id', async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+  // Get logged-in student's own data
+router.get('/me', async (req, res) => {
+  try {
+    const email = req.user.email;
+
+    const [rows] = await pool.execute(
+      'SELECT * FROM students WHERE email = ?',
+      [email]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ message: 'Student record not found' });
+    }
+
+    res.status(200).json(rows[0]);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 });
 export default router;
