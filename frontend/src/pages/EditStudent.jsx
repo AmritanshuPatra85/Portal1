@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import axios from 'axios'
+import api from '../utils/api.js'
 
 const EditStudent = () => {
   const { id } = useParams()
@@ -17,9 +17,7 @@ const EditStudent = () => {
   useEffect(() => {
     const fetchStudent = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/students/getStudent/${id}`
-        )
+        const response = await api.get(`/api/students/getStudent/${id}`)
 
         const student = response.data
 
@@ -46,10 +44,7 @@ const EditStudent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await axios.put(
-        `${import.meta.env.VITE_API_URL}/api/students/editStudent/${id}`,
-        formData
-      )
+      await api.put(`/api/students/editStudent/${id}`, formData)
 
       alert('Student updated successfully!')
       navigate('/students')

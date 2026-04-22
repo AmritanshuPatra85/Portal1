@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../utils/api.js";
 import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
@@ -17,9 +17,7 @@ const StudentList = () => {
   // Students Lao
   const fetchStudents = async () => {
     try {
-      const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/students/getStudents`
-      );
+      const res = await api.get(`/api/students/getStudents`);
 
       const data = res.data.students || res.data || [];
       setStudents(data);
@@ -38,9 +36,7 @@ const StudentList = () => {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(
-        `${import.meta.env.VITE_API_URL}/api/students/deleteStudent/${id}`
-      );
+      await api.delete(`/api/students/deleteStudent/${id}`);
 
       alert("Student deleted successfully");
       setStudents((prev) => prev.filter((s) => s.id !== id));

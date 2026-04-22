@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import api from '../utils/api.js'
 
 const AddStudent = () => {
   const navigate = useNavigate()
@@ -20,7 +20,7 @@ const AddStudent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/students/addStudents`, formData)
+      await api.post(`/api/students/addStudents`, formData)
       alert('Student added successfully!')
       navigate('/students')
     } catch (error) {
