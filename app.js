@@ -20,13 +20,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Hardcoded admin credentials (keep for now)
+// Hardcoded admin credentials (temporary)
 const ADMIN = {
   username: 'admin',
   password: 'admin123'
 };
 
-// Old hardcoded login route
+// Old login (keep for testing)
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
 
@@ -38,16 +38,17 @@ app.post('/login', (req, res) => {
   res.json({ token });
 });
 
-// New auth routes (register + login via DB)
+// Auth routes (DB based)
 app.use('/auth', authRoutes);
 
-// Student can access their own data — must come BEFORE admin-protected route
+// ---------------- USER ROUTES ----------------
+
+// Get own student data
 app.get('/api/students/me', verifyToken, async (req, res) => {
   try {
-    const email = req.user.email;
     const [rows] = await pool.execute(
-      'SELECT * FROM students WHERE email = ?',
-      [email]
+      'SELECT * FROM students WHERE user_id = ?',
+      [req.user.id]
     );
 
     if (rows.length === 0) {
@@ -60,20 +61,20 @@ app.get('/api/students/me', verifyToken, async (req, res) => {
   }
 });
 
-// Student saves their own profile for the first time
+// Create student profile
 app.post('/api/students/me', verifyToken, async (req, res) => {
   try {
-    const email = req.user.email;
     const { full_name, dob, course } = req.body;
+    const { id, email } = req.user;
 
     await pool.execute(
-      'INSERT INTO students (full_name, email, dob, course, updated_by) VALUES (?, ?, ?, ?, ?)',
-      [full_name, email, dob, course, email]
+      'INSERT INTO students (full_name, email, dob, course, updated_by, user_id) VALUES (?, ?, ?, ?, ?, ?)',
+      [full_name, email, dob, course, email, id]
     );
 
     const [rows] = await pool.execute(
-      'SELECT * FROM students WHERE email = ?',
-      [email]
+      'SELECT * FROM students WHERE user_id = ?',
+      [id]
     );
 
     res.status(201).json(rows[0]);
@@ -82,10 +83,14 @@ app.post('/api/students/me', verifyToken, async (req, res) => {
   }
 });
 
-// Admin only — must come AFTER /me
+// ---------------- ADMIN ROUTES ----------------
+
+// MUST be after /me routes
 app.use('/api/students', verifyToken, requireRole('admin'), studentRoutes);
 
-// Test DB Connection
+// ---------------- SERVER ----------------
+
+// Test DB connection
 const testConnection = async () => {
   try {
     const connection = await pool.getConnection();
