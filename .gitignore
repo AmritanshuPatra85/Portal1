@@ -39,3 +39,4 @@ Thumbs.db
 # Secrets / keys
 *.pem
 *.key
+relational_schema.sql

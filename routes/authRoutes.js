@@ -23,7 +23,7 @@ router.post('/register', async (req, res) => {
     // Save to DB
     await pool.query(
       'INSERT INTO users (full_name, email, password, role) VALUES (?, ?, ?, ?)',
-      [full_name, email, hashedPassword, role || 'student']
+      [full_name, email, hashedPassword, 'student']
     );
 
     res.status(201).json({ message: 'User registered successfully' });
@@ -46,6 +46,11 @@ router.post('/login', async (req, res) => {
     }
 
     const user = rows[0];
+
+    // Check if user is banned
+    if (user.is_banned) {
+      return res.status(403).json({ message: 'Your account has been banned' });
+    }
 
     // Compare password
     const match = await bcrypt.compare(password, user.password);

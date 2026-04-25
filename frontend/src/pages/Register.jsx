@@ -19,7 +19,7 @@ const Register = () => {
 
   const handleRegister = async () => {
     try {
-      const res = await api.post('/auth/register', formData);
+      const res = await api.post('/api/auth/register', formData);
       setSuccess(res.data.message);
       setTimeout(() => navigate('/login'), 1500);
     } catch (err) {
