@@ -6,24 +6,24 @@ import { SECRET } from '../middleware/auth.js';
 
 const router = express.Router();
 
-// Register
+// Register karo 
 router.post('/register', async (req, res) => {
   const { full_name, email, password, role } = req.body;
 
   try {
-    // Check if user already exists
+    // User pehlse se registered hai ki nhi dekhiyo
     const [existing] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
     if (existing.length > 0) {
       return res.status(400).json({ message: 'Email already registered' });
     }
 
-    // Hash the password
+    // Hash kardo
     const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Save to DB
+                                                                                           
+    // Save karlo
     await pool.query(
       'INSERT INTO users (full_name, email, password, role) VALUES (?, ?, ?, ?)',
-      [full_name, email, hashedPassword, 'student']
+      [full_name, email, hashedPassword, role || 'student']
     );
 
     res.status(201).json({ message: 'User registered successfully' });
@@ -34,13 +34,15 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Login
+// Login karenge ab yaha sw
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
     // Find user by email
     const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
+    console.log('rows found:', rows.length);
+console.log('email received:', email);
     if (rows.length === 0) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
@@ -54,6 +56,9 @@ router.post('/login', async (req, res) => {
 
     // Compare password
     const match = await bcrypt.compare(password, user.password);
+    console.log('password match:', match);
+console.log('input password:', password);
+console.log('stored hash:', user.password);
     if (!match) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }

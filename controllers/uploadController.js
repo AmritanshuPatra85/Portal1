@@ -1,5 +1,4 @@
 import { PutObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import s3 from '../config/s3.js';
 import pool from '../config/db.js';
 
@@ -50,8 +49,8 @@ export const uploadVideo = async (req, res) => {
   }
 };
 
-// Get signed URL for watching a video
-export const getVideoUrl = async (req, res) => {
+// Stream video directly through server
+export const streamVideo = async (req, res) => {
   const { lecture_id } = req.params;
 
   try {
@@ -67,7 +66,7 @@ export const getVideoUrl = async (req, res) => {
 
     const lecture = rows[0];
 
-    // Check if lecture is free or student is enrolled
+    // Check enrollment if not free
     if (!lecture.is_free) {
       const [enrollment] = await pool.query(
         `SELECT e.* FROM enrollments e
@@ -82,13 +81,23 @@ export const getVideoUrl = async (req, res) => {
       }
     }
 
-    // Generate signed URL — valid for 15 minutes
-    const signedUrl = await getSignedUrl(s3, new GetObjectCommand({
+    // Fetch video from S3
+    const command = new GetObjectCommand({
       Bucket: process.env.AWS_BUCKET_NAME,
       Key: lecture.video_url,
-    }), { expiresIn: 900 });
+    });
 
-    return res.status(200).json({ url: signedUrl });
+    const s3Response = await s3.send(command);
+
+    // Set headers so browser knows it's a video
+    res.setHeader('Content-Type', 'video/mp4');
+    res.setHeader('Accept-Ranges', 'bytes');
+    if (s3Response.ContentLength) {
+      res.setHeader('Content-Length', s3Response.ContentLength);
+    }
+
+    // Stream video directly to student
+    s3Response.Body.pipe(res);
 
   } catch (error) {
     return res.status(500).json({ message: error.message });
