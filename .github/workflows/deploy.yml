@@ -22,6 +22,7 @@ jobs:
           ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
           ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST "
             cd ~/Portal1 &&
+            git reset --hard origin/main &&
             git pull origin main &&
             docker compose up -d --build backend
           "
