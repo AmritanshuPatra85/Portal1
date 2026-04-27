@@ -38,3 +38,19 @@ export const getDashboardStats = async (req, res) => {
 
   res.json({ total_students, total_teachers, total_courses, total_revenue });
 };
+
+export const changeUserRole = async (req, res) => {
+  const { user_id } = req.params;
+  const { role } = req.body;
+
+  if (!['student', 'teacher'].includes(role)) {
+    return res.status(400).json({ message: 'Invalid role' });
+  }
+
+  const [[user]] = await pool.query('SELECT id, role FROM users WHERE id = ?', [user_id]);
+  if (!user) return res.status(404).json({ message: 'User not found' });
+  if (user.role === 'admin') return res.status(400).json({ message: 'Cannot change admin role' });
+
+  await pool.query('UPDATE users SET role = ? WHERE id = ?', [role, user_id]);
+  res.json({ message: 'Role updated successfully' });
+};

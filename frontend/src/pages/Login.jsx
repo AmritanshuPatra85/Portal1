@@ -10,16 +10,18 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const res = await api.post('/api/auth/login', { email, password });
+      const res = await api.post('/auth/login', { email, password });
       const { token, role } = res.data;
 
       localStorage.setItem('token', token);
       localStorage.setItem('role', role);
 
       if (role === 'admin') {
-        navigate('/students');
+        navigate('/admin')
+      } else if (role === 'teacher') {
+        navigate('/teacher')
       } else {
-        navigate('/dashboard');
+        navigate('/dashboard')
       }
 
     } catch (err) {

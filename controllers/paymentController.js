@@ -31,7 +31,7 @@ export const createOrder = async (req, res) => {
     [student_id, course_id, course.price, order.id, 'pending']
   );
 
-  res.json({ order_id: order.id, amount, currency: 'INR' });
+  res.json({ order_id: order.id, amount, currency: 'INR', key: process.env.RAZORPAY_KEY_ID });
 };
 
 export const verifyPayment = async (req, res) => {
