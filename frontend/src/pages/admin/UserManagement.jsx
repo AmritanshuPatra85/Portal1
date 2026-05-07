@@ -49,53 +49,53 @@ const UserManagement = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-400 via-emerald-500 to-teal-600">
-        <p className="text-xl font-bold text-white">Loading...</p>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#EEF3FD] via-[#5B8DEF] to-[#A78BFA]">
+        <p className="text-xl font-bold text-[#FFFFFF]">Loading...</p>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-400 via-emerald-500 to-teal-600 py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-[#EEF3FD] via-[#5B8DEF] to-[#A78BFA] py-12 px-4">
       <div className="max-w-5xl mx-auto">
 
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-4xl font-bold text-white">User Management</h1>
-            <p className="text-emerald-100 mt-1">{users.length} total users</p>
+            <h1 className="text-4xl font-bold text-[#FFFFFF]">User Management</h1>
+            <p className="text-[#EEF3FD] mt-1">{users.length} total users</p>
           </div>
           <Link
             to="/admin"
-            className="text-emerald-100 hover:text-white text-sm"
+            className="text-[#EEF3FD] hover:text-[#FFFFFF] text-sm"
           >
             ← Back to dashboard
           </Link>
         </div>
 
-        <div className="bg-white/90 backdrop-blur-lg rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-[#FFFFFF]/90 backdrop-blur-lg rounded-2xl shadow-xl overflow-hidden">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-slate-200 bg-emerald-50">
-                <th className="text-left px-6 py-4 text-slate-600 font-semibold">Name</th>
-                <th className="text-left px-6 py-4 text-slate-600 font-semibold">Email</th>
-                <th className="text-left px-6 py-4 text-slate-600 font-semibold">Role</th>
-                <th className="text-left px-6 py-4 text-slate-600 font-semibold">Status</th>
-                <th className="text-left px-6 py-4 text-slate-600 font-semibold">Action</th>
-                <th className="text-left px-6 py-4 text-slate-600 font-semibold">Role Change</th>
+              <tr className="border-b border-[#E8EDF2] bg-[#EEF3FD]">
+                <th className="text-left px-6 py-4 text-[#94A3B8] font-semibold">Name</th>
+                <th className="text-left px-6 py-4 text-[#94A3B8] font-semibold">Email</th>
+                <th className="text-left px-6 py-4 text-[#94A3B8] font-semibold">Role</th>
+                <th className="text-left px-6 py-4 text-[#94A3B8] font-semibold">Status</th>
+                <th className="text-left px-6 py-4 text-[#94A3B8] font-semibold">Action</th>
+                <th className="text-left px-6 py-4 text-[#94A3B8] font-semibold">Role Change</th>
               </tr>
             </thead>
             <tbody>
               {users.map(user => (
-                <tr key={user.id} className="border-b border-slate-100 hover:bg-slate-50 transition">
-                  <td className="px-6 py-4 text-slate-800 font-medium">{user.full_name || '—'}</td>
-                  <td className="px-6 py-4 text-slate-600">{user.email}</td>
+                <tr key={user.id} className="border-b border-[#E8EDF2] hover:bg-[#F0F4F8] transition">
+                  <td className="px-6 py-4 text-[#1E293B] font-medium">{user.full_name || '—'}</td>
+                  <td className="px-6 py-4 text-[#94A3B8]">{user.email}</td>
                   <td className="px-6 py-4">
                     <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
                       user.role === 'admin'
-                        ? 'bg-purple-100 text-purple-700'
+                        ? 'bg-[#EEF3FD] text-[#A78BFA]'
                         : user.role === 'teacher'
-                        ? 'bg-amber-100 text-amber-700'
-                        : 'bg-emerald-100 text-emerald-700'
+                        ? 'bg-[#EEF3FD] text-[#F9A852]'
+                        : 'bg-[#EEF3FD] text-[#5B8DEF]'
                     }`}>
                       {user.role}
                     </span>
@@ -103,8 +103,8 @@ const UserManagement = () => {
                   <td className="px-6 py-4">
                     <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
                       user.is_banned
-                        ? 'bg-red-100 text-red-700'
-                        : 'bg-green-100 text-green-700'
+                        ? 'bg-red-100 text-red-700' /* TODO: map this color */
+                        : 'bg-[#EEF3FD] text-[#6ECA97]'
                     }`}>
                       {user.is_banned ? 'Banned' : 'Active'}
                     </span>
@@ -116,8 +116,8 @@ const UserManagement = () => {
                         disabled={togglingId === user.id}
                         className={`text-xs font-semibold px-3 py-1.5 rounded-lg transition disabled:opacity-50 ${
                           user.is_banned
-                            ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
-                            : 'bg-red-500 hover:bg-red-600 text-white'
+                            ? 'bg-[#5B8DEF] hover:bg-[#5B8DEF] text-[#FFFFFF]'
+                            : 'bg-red-500 hover:bg-red-600 text-[#FFFFFF]' /* TODO: map this color */
                         }`}
                       >
                         {togglingId === user.id ? '...' : user.is_banned ? 'Unban' : 'Ban'}
@@ -129,7 +129,7 @@ const UserManagement = () => {
                       <select
                         value={user.role}
                         onChange={(e) => changeRole(user.id, e.target.value)}
-                        className="text-xs border border-slate-300 rounded-lg px-2 py-1 text-slate-700"
+                        className="text-xs border border-[#E8EDF2] rounded-lg px-2 py-1 text-[#1E293B]"
                       >
                         <option value="student">student</option>
                         <option value="teacher">teacher</option>

@@ -33,32 +33,32 @@ const CourseList = () => {
   })
 
   const gradients = [
-    'from-emerald-500 to-teal-600',
-    'from-teal-500 to-cyan-600',
-    'from-emerald-600 to-green-700',
-    'from-cyan-500 to-teal-600',
+    'from-[#EEF3FD] to-[#A78BFA]',
+    'from-[#EEF3FD] to-[#A78BFA]',
+    'from-[#EEF3FD] to-[#A78BFA]',
+    'from-[#EEF3FD] to-[#A78BFA]',
   ]
   const icons = ['📚', '💻', '🎨', '🔬', '📊', '🎯', '🧠', '⚙️']
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-400 via-emerald-500 to-teal-600">
+    <div className="min-h-screen bg-gradient-to-br from-[#EEF3FD] via-[#5B8DEF] to-[#A78BFA]">
 
       {/* Header */}
       <header className="text-center py-8">
-        <h1 className="text-5xl font-bold text-white tracking-wide drop-shadow-lg">EduVora</h1>
-        <p className="text-emerald-100 mt-2 text-lg">Explore our courses</p>
+        <h1 className="text-5xl font-bold text-[#FFFFFF] tracking-wide drop-shadow-lg">EduVora</h1>
+        <p className="text-[#EEF3FD] mt-2 text-lg">Explore our courses</p>
       </header>
 
       <main className="max-w-5xl mx-auto px-4 pb-12">
 
         {/* Search + Filter Bar */}
-        <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl px-6 py-4 mb-6 flex flex-col sm:flex-row gap-3">
+        <div className="bg-[#FFFFFF]/80 backdrop-blur-lg rounded-2xl shadow-2xl px-6 py-4 mb-6 flex flex-col sm:flex-row gap-3">
           <input
             type="text"
             placeholder="Search courses..."
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="flex-1 border border-emerald-200 rounded-lg px-4 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+            className="flex-1 border border-[#E8EDF2] rounded-lg px-4 py-2 text-[#1E293B] focus:outline-none focus:ring-2 focus:ring-[#5B8DEF]"
           />
           <div className="flex gap-2">
             {['all', 'free', 'paid'].map(f => (
@@ -67,8 +67,8 @@ const CourseList = () => {
                 onClick={() => setFilter(f)}
                 className={`px-4 py-2 rounded-lg font-semibold text-sm capitalize transition-all duration-200 ${
                   filter === f
-                    ? 'bg-emerald-600 text-white shadow-md'
-                    : 'bg-white text-slate-600 border border-emerald-200 hover:bg-emerald-50'
+                    ? 'bg-[#5B8DEF] text-[#FFFFFF] shadow-md'
+                    : 'bg-[#FFFFFF] text-[#94A3B8] border border-[#E8EDF2] hover:bg-[#EEF3FD]'
                 }`}
               >
                 {f}
@@ -79,7 +79,7 @@ const CourseList = () => {
 
         {/* Results count */}
         {!loading && (
-          <p className="text-emerald-100 text-sm mb-4">
+          <p className="text-[#EEF3FD] text-sm mb-4">
             {filtered.length} {filtered.length === 1 ? 'course' : 'courses'} found
           </p>
         )}
@@ -88,22 +88,22 @@ const CourseList = () => {
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {[1, 2, 3, 4, 5, 6].map(i => (
-              <div key={i} className="bg-white/80 rounded-2xl shadow-xl overflow-hidden animate-pulse">
-                <div className="h-36 bg-emerald-200" />
+              <div key={i} className="bg-[#FFFFFF]/80 rounded-2xl shadow-xl overflow-hidden animate-pulse">
+                <div className="h-36 bg-[#EEF3FD]" />
                 <div className="p-5 space-y-3">
-                  <div className="h-4 bg-emerald-100 rounded w-3/4" />
-                  <div className="h-3 bg-emerald-100 rounded w-1/2" />
-                  <div className="h-3 bg-emerald-100 rounded w-full" />
-                  <div className="h-8 bg-emerald-100 rounded w-1/3" />
+                  <div className="h-4 bg-[#EEF3FD] rounded w-3/4" />
+                  <div className="h-3 bg-[#EEF3FD] rounded w-1/2" />
+                  <div className="h-3 bg-[#EEF3FD] rounded w-full" />
+                  <div className="h-8 bg-[#EEF3FD] rounded w-1/3" />
                 </div>
               </div>
             ))}
           </div>
         ) : filtered.length === 0 ? (
-          <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl px-8 py-16 text-center">
+          <div className="bg-[#FFFFFF]/80 backdrop-blur-lg rounded-2xl shadow-2xl px-8 py-16 text-center">
             <p className="text-4xl mb-3">🔍</p>
-            <p className="text-slate-600 text-lg font-semibold">No courses found</p>
-            <p className="text-slate-400 text-sm mt-1">Try a different search or filter</p>
+            <p className="text-[#94A3B8] text-lg font-semibold">No courses found</p>
+            <p className="text-[#94A3B8] text-sm mt-1">Try a different search or filter</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -111,7 +111,7 @@ const CourseList = () => {
               <Link
                 to={`/courses/${course.id || course.course_id}`}
                 key={course.id || course.course_id || i}
-                className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+                className="bg-[#FFFFFF]/80 backdrop-blur-lg rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
               >
                 {/* Thumbnail */}
                 <div className={`h-36 bg-gradient-to-br ${gradients[i % gradients.length]} flex items-center justify-center text-4xl`}>
@@ -123,26 +123,26 @@ const CourseList = () => {
                   {/* Price badge */}
                   <span className={`inline-block text-xs font-semibold px-2 py-1 rounded-md mb-2 ${
                     course.price > 0
-                      ? 'bg-amber-100 text-amber-700'
-                      : 'bg-emerald-100 text-emerald-700'
+                      ? 'bg-[#EEF3FD] text-[#F9A852]'
+                      : 'bg-[#EEF3FD] text-[#6ECA97]'
                   }`}>
                     {course.price > 0 ? `₹${course.price}` : 'Free'}
                   </span>
 
-                  <h3 className="text-slate-800 font-semibold text-base leading-snug mb-1">
+                  <h3 className="text-[#1E293B] font-semibold text-base leading-snug mb-1">
                     {course.title}
                   </h3>
 
-                  <p className="text-slate-500 text-xs mb-3 line-clamp-2">
+                  <p className="text-[#94A3B8] text-xs mb-3 line-clamp-2">
                     {course.description || 'No description available.'}
                   </p>
 
                   <div className="flex items-center justify-between">
-                    <p className="text-slate-400 text-xs">
+                    <p className="text-[#94A3B8] text-xs">
                       By {course.instructor_name || course.teacher_name || 'Instructor'}
                     </p>
                     {course.rating > 0 && (
-                      <span className="text-xs text-amber-500 font-semibold">
+                      <span className="text-xs text-[#F9A852] font-semibold">
                         ⭐ {Number(course.rating).toFixed(1)}
                       </span>
                     )}

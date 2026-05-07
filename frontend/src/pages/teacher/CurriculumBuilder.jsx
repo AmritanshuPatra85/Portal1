@@ -175,8 +175,8 @@ const CurriculumBuilder = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-400 via-emerald-500 to-teal-600 flex items-center justify-center">
-        <p className="text-white text-xl animate-pulse">
+      <div className="min-h-screen bg-gradient-to-br from-[#EEF3FD] via-[#5B8DEF] to-[#A78BFA] flex items-center justify-center">
+        <p className="text-[#FFFFFF] text-xl animate-pulse">
           Loading curriculum...
         </p>
       </div>
@@ -184,30 +184,30 @@ const CurriculumBuilder = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-400 via-emerald-500 to-teal-600 py-10 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-[#EEF3FD] via-[#5B8DEF] to-[#A78BFA] py-10 px-4">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-white">
+            <h1 className="text-3xl font-bold text-[#FFFFFF]">
               Curriculum Builder
             </h1>
-            <p className="text-emerald-100 mt-1">
+            <p className="text-[#EEF3FD] mt-1">
               Add modules and lectures to your course
             </p>
           </div>
 
           <button
             onClick={() => navigate('/teacher')}
-            className="text-emerald-100 hover:text-white text-sm"
+            className="text-[#EEF3FD] hover:text-[#FFFFFF] text-sm"
           >
             ← Back to dashboard
           </button>
         </div>
 
         {/* Add Module */}
-        <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl px-6 py-5 mb-6">
-          <h2 className="text-slate-700 font-semibold mb-3">
+        <div className="bg-[#FFFFFF]/80 backdrop-blur-lg rounded-2xl shadow-xl px-6 py-5 mb-6">
+          <h2 className="text-[#1E293B] font-semibold mb-3">
             Add New Module
           </h2>
 
@@ -217,13 +217,13 @@ const CurriculumBuilder = () => {
               placeholder="Module title e.g. Getting Started"
               value={newModuleTitle}
               onChange={(e) => setNewModuleTitle(e.target.value)}
-              className="flex-1 border border-slate-300 rounded-xl px-4 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="flex-1 border border-[#E8EDF2] rounded-xl px-4 py-2 text-[#1E293B] focus:outline-none focus:ring-2 focus:ring-[#5B8DEF]"
             />
 
             <button
               onClick={addModule}
               disabled={addingModule}
-              className="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 rounded-xl font-semibold disabled:opacity-60 transition"
+              className="bg-[#5B8DEF] hover:bg-[#5B8DEF] text-[#FFFFFF] px-5 py-2 rounded-xl font-semibold disabled:opacity-60 transition"
             >
               {addingModule ? 'Adding...' : '+ Add'}
             </button>
@@ -232,8 +232,8 @@ const CurriculumBuilder = () => {
 
         {/* Modules List */}
         {modules.length === 0 ? (
-          <div className="bg-white/80 rounded-2xl px-8 py-12 text-center">
-            <p className="text-slate-500">
+          <div className="bg-[#FFFFFF]/80 rounded-2xl px-8 py-12 text-center">
+            <p className="text-[#94A3B8]">
               No modules yet. Add your first module above.
             </p>
           </div>
@@ -242,19 +242,19 @@ const CurriculumBuilder = () => {
             {modules.map((module, mi) => (
               <div
                 key={module.id}
-                className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl overflow-hidden"
+                className="bg-[#FFFFFF]/80 backdrop-blur-lg rounded-2xl shadow-xl overflow-hidden"
               >
                 {/* Module Header */}
-                <div className="px-6 py-4 bg-emerald-50 border-b border-emerald-100 flex items-center gap-3">
-                  <span className="w-7 h-7 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center">
+                <div className="px-6 py-4 bg-[#EEF3FD] border-b border-[#E8EDF2] flex items-center gap-3">
+                  <span className="w-7 h-7 rounded-full bg-[#5B8DEF] text-[#FFFFFF] text-xs font-bold flex items-center justify-center">
                     {mi + 1}
                   </span>
 
-                  <h3 className="text-slate-800 font-semibold">
+                  <h3 className="text-[#1E293B] font-semibold">
                     {module.title}
                   </h3>
 
-                  <span className="ml-auto text-xs text-slate-400">
+                  <span className="ml-auto text-xs text-[#94A3B8]">
                     {module.lectures.length} lectures
                   </span>
                 </div>
@@ -264,20 +264,20 @@ const CurriculumBuilder = () => {
                   {module.lectures.map((lecture) => (
                     <div
                       key={lecture.id}
-                      className="flex items-center gap-3 py-2 border-b border-slate-100"
+                      className="flex items-center gap-3 py-2 border-b border-[#E8EDF2]"
                     >
-                      <span className="text-emerald-500 text-sm">▶</span>
+                      <span className="text-[#5B8DEF] text-sm">▶</span>
 
-                      <span className="text-slate-700 text-sm">
+                      <span className="text-[#1E293B] text-sm">
                         {lecture.title}
                       </span>
 
                       {lecture.video_url ? (
-                        <span className="ml-auto text-xs text-emerald-600">
+                        <span className="ml-auto text-xs text-[#5B8DEF]">
                           ✓ Video uploaded
                         </span>
                       ) : (
-                        <span className="ml-auto text-xs text-amber-500">
+                        <span className="ml-auto text-xs text-[#F9A852]">
                           No video
                         </span>
                       )}
@@ -286,8 +286,8 @@ const CurriculumBuilder = () => {
                 </div>
 
                 {/* Add Lecture Form */}
-                <div className="px-6 py-4 bg-slate-50 border-t border-slate-100 space-y-3">
-                  <p className="text-sm font-semibold text-slate-600">
+                <div className="px-6 py-4 bg-[#F0F4F8] border-t border-[#E8EDF2] space-y-3">
+                  <p className="text-sm font-semibold text-[#94A3B8]">
                     Add Lecture
                   </p>
 
@@ -302,7 +302,7 @@ const CurriculumBuilder = () => {
                         e.target.value
                       )
                     }
-                    className="w-full border border-slate-300 rounded-xl px-4 py-2 text-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full border border-[#E8EDF2] rounded-xl px-4 py-2 text-[#1E293B] text-sm focus:outline-none focus:ring-2 focus:ring-[#5B8DEF]"
                   />
 
                   <input
@@ -315,7 +315,7 @@ const CurriculumBuilder = () => {
                         e.target.files[0]
                       )
                     }
-                    className="w-full text-sm text-slate-600"
+                    className="w-full text-sm text-[#94A3B8]"
                   />
 
                   <div className="flex items-center gap-2">
@@ -335,7 +335,7 @@ const CurriculumBuilder = () => {
 
                     <label
                       htmlFor={`free-${module.id}`}
-                      className="text-sm text-slate-600"
+                      className="text-sm text-[#94A3B8]"
                     >
                       Free preview
                     </label>
@@ -346,7 +346,7 @@ const CurriculumBuilder = () => {
                       addLecture(module.id, module.lectures.length)
                     }
                     disabled={uploadingLecture[module.id]}
-                    className="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 rounded-xl text-sm font-semibold disabled:opacity-60 transition"
+                    className="bg-[#5B8DEF] hover:bg-[#5B8DEF] text-[#FFFFFF] px-5 py-2 rounded-xl text-sm font-semibold disabled:opacity-60 transition"
                   >
                     {uploadingLecture[module.id]
                       ? 'Uploading...'
@@ -358,8 +358,8 @@ const CurriculumBuilder = () => {
           </div>
         )}
 
-        <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl px-6 py-5 mt-6">
-          <h2 className="text-slate-700 font-semibold mb-3">Post Announcement</h2>
+        <div className="bg-[#FFFFFF]/80 backdrop-blur-lg rounded-2xl shadow-xl px-6 py-5 mt-6">
+          <h2 className="text-[#1E293B] font-semibold mb-3">Post Announcement</h2>
           <input
             type="text"
             placeholder="Announcement title"
@@ -367,7 +367,7 @@ const CurriculumBuilder = () => {
             onChange={(e) =>
               setAnnouncement({ ...announcement, title: e.target.value })
             }
-            className="w-full border border-slate-300 rounded-xl px-4 py-2 text-slate-700 mb-3 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full border border-[#E8EDF2] rounded-xl px-4 py-2 text-[#1E293B] mb-3 focus:outline-none focus:ring-2 focus:ring-[#5B8DEF]"
           />
           <textarea
             placeholder="Write your announcement..."
@@ -376,12 +376,12 @@ const CurriculumBuilder = () => {
               setAnnouncement({ ...announcement, message: e.target.value })
             }
             rows={3}
-            className="w-full border border-slate-300 rounded-xl px-4 py-2 text-slate-700 mb-3 focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+            className="w-full border border-[#E8EDF2] rounded-xl px-4 py-2 text-[#1E293B] mb-3 focus:outline-none focus:ring-2 focus:ring-[#5B8DEF] resize-none"
           />
           <button
             onClick={postAnnouncement}
             disabled={postingAnnouncement}
-            className="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 rounded-xl text-sm font-semibold disabled:opacity-60 transition"
+            className="bg-[#5B8DEF] hover:bg-[#5B8DEF] text-[#FFFFFF] px-5 py-2 rounded-xl text-sm font-semibold disabled:opacity-60 transition"
           >
             {postingAnnouncement ? 'Posting...' : 'Post Announcement'}
           </button>

@@ -141,28 +141,28 @@ const CoursePlayer = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-400 via-emerald-500 to-teal-600">
-        <p className="text-white text-xl font-bold">Loading course player...</p>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#EEF3FD] via-[#5B8DEF] to-[#A78BFA]">
+        <p className="text-[#FFFFFF] text-xl font-bold">Loading course player...</p>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-400 via-emerald-500 to-teal-600">
+    <div className="min-h-screen bg-gradient-to-br from-[#EEF3FD] via-[#5B8DEF] to-[#A78BFA]">
       <header className="text-center py-6">
-        <h1 className="text-4xl font-bold text-white tracking-wide drop-shadow-lg">EduVora</h1>
-        <p className="text-emerald-100 mt-1 text-base">Course Player</p>
+        <h1 className="text-4xl font-bold text-[#FFFFFF] tracking-wide drop-shadow-lg">EduVora</h1>
+        <p className="text-[#EEF3FD] mt-1 text-base">Course Player</p>
       </header>
 
       <main className="max-w-6xl mx-auto px-4 pb-10">
-        <Link to={`/courses/${id}`} className="text-emerald-100 text-sm hover:text-white mb-4 inline-block">
+        <Link to={`/courses/${id}`} className="text-[#EEF3FD] text-sm hover:text-[#FFFFFF] mb-4 inline-block">
           ← Back to course
         </Link>
 
         <div className="flex gap-4">
           {/* Left (Video) */}
           <div className="w-[70%]">
-            <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl overflow-hidden">
+            <div className="bg-[#FFFFFF]/80 backdrop-blur-lg rounded-2xl shadow-2xl overflow-hidden">
               {currentLecture ? (
                 <>
                   <video
@@ -176,17 +176,17 @@ const CoursePlayer = () => {
                     onEnded={stopProgressInterval}
                   />
                   <div className="p-6">
-                    <p className="text-emerald-700 text-xs font-semibold uppercase tracking-wide">
+                    <p className="text-[#5B8DEF] text-xs font-semibold uppercase tracking-wide">
                       Lecture {lectureIndexInfo.number}{lectureIndexInfo.total ? ` of ${lectureIndexInfo.total}` : ''}
                     </p>
-                    <h2 className="text-slate-800 font-bold text-lg mt-1">
+                    <h2 className="text-[#1E293B] font-bold text-lg mt-1">
                       {currentLecture.title || 'Untitled Lecture'}
                     </h2>
                   </div>
                 </>
               ) : (
                 <div className="p-10 text-center">
-                  <p className="text-slate-600">No lectures available for this course yet.</p>
+                  <p className="text-[#94A3B8]">No lectures available for this course yet.</p>
                 </div>
               )}
             </div>
@@ -194,19 +194,19 @@ const CoursePlayer = () => {
 
           {/* Right (Curriculum) */}
           <aside className="w-[30%]">
-            <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl overflow-hidden">
-              <div className="px-6 py-4 border-b border-emerald-100">
-                <h3 className="text-slate-800 font-bold">Curriculum</h3>
-                <p className="text-slate-500 text-xs mt-1">Select a lecture to play</p>
+            <div className="bg-[#FFFFFF]/80 backdrop-blur-lg rounded-2xl shadow-2xl overflow-hidden">
+              <div className="px-6 py-4 border-b border-[#E8EDF2]">
+                <h3 className="text-[#1E293B] font-bold">Curriculum</h3>
+                <p className="text-[#94A3B8] text-xs mt-1">Select a lecture to play</p>
               </div>
 
               <div className="max-h-[70vh] overflow-y-auto px-4 py-4 space-y-4">
                 {modules.length === 0 ? (
-                  <p className="text-slate-500 text-sm px-2">No modules added yet.</p>
+                  <p className="text-[#94A3B8] text-sm px-2">No modules added yet.</p>
                 ) : (
                   modules.map((module, mi) => (
                     <div key={module.id || mi}>
-                      <p className="text-emerald-700 font-semibold text-sm px-2 mb-2">
+                      <p className="text-[#5B8DEF] font-semibold text-sm px-2 mb-2">
                         {module.title || `Module ${mi + 1}`}
                       </p>
 
@@ -221,17 +221,17 @@ const CoursePlayer = () => {
                               onClick={() => setCurrentLecture({ ...lecture, id: lectureId })}
                               className={[
                                 'w-full text-left px-3 py-2 rounded-xl transition-colors duration-150 flex items-start gap-2',
-                                isCurrent ? 'bg-emerald-100' : 'hover:bg-emerald-50',
+                                isCurrent ? 'bg-[#EEF3FD]' : 'hover:bg-[#EEF3FD]',
                               ].join(' ')}
                             >
-                              <span className="mt-0.5 text-xs font-bold text-emerald-700">
+                              <span className="mt-0.5 text-xs font-bold text-[#5B8DEF]">
                                 {mi + 1}.{li + 1}
                               </span>
-                              <span className="flex-1 text-slate-700 text-sm leading-snug">
+                              <span className="flex-1 text-[#1E293B] text-sm leading-snug">
                                 {lecture.title || 'Untitled Lecture'}
                               </span>
                               {isCompleted && (
-                                <span className="text-emerald-600 text-sm font-bold" aria-label="Completed">
+                                <span className="text-[#5B8DEF] text-sm font-bold" aria-label="Completed">
                                   ✓
                                 </span>
                               )}
@@ -248,7 +248,7 @@ const CoursePlayer = () => {
         </div>
       </main>
 
-      <footer className="bg-emerald-700 text-white text-center py-4 text-sm tracking-wide">
+      <footer className="bg-[#5B8DEF] text-[#FFFFFF] text-center py-4 text-sm tracking-wide">
         Happy Learning 🚀
       </footer>
     </div>
