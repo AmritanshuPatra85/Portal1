@@ -11,6 +11,8 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
       - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    ports:
+      - "3306:3306"
     networks:
       - eduvora_network
     healthcheck:
